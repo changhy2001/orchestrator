@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    User Detail - {{ meta.user.username }}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>{{ meta.user.username }}</h1>
+        <p>
+            <strong>Credentials:</strong>
+            {{ meta.credentials|join:", " }}
+        </p>
+        <p>
+            <strong>Questions:</strong>
+            {{ meta.questions|join:", " }}
+        </p>
+        <p>
+            <strong>Session Info:</strong>
+            {{ meta.session_info }}
+        </p>
+        <p>
+            <small class="text-muted">Last Updated: {{ meta.updated_at }}</small>
+        </p>
+    </section>
+{% endblock %}

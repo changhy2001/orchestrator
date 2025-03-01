@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.utils.dateparse import parse_date
@@ -64,3 +64,9 @@ def search_view(request):
     }
 
     return render(request, "search/search.html", context)
+
+@login_required
+def detail(request, username):
+    meta = get_object_or_404(UserMeta, user__username=username)
+    context = {"meta": meta}
+    return render(request, "search/search_detail.html", context)

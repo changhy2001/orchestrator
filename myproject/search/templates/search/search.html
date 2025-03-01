@@ -79,7 +79,11 @@
         <div class="col-md-6 col-lg-4">
         <div class="card mb-4">
             <div class="card-body">
-            <h5 class="card-title">User: {{ meta.user.username }}</h5>
+                <h5 class="card-title">
+                    <a href="{% url 'search:detail' username=meta.user.username %}">
+                        User: {{ meta.user.username }}
+                    </a>
+                </h5>                
             <p class="card-text">
                 <strong>Credentials:</strong> {{ meta.credentials|join:", " }}
             </p>
