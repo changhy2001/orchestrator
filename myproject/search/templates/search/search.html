@@ -25,6 +25,11 @@
                 <input type="text" class="form-control" name="username_contains" value="{{ request.GET.username_contains }}" placeholder="Username contains...">
             </div>
 
+            <!-- User credentials Filter -->
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" name="credentials_contains" value="{{ request.GET.credentials_contains }}" placeholder="User credentials...">
+            </div>
+
             <!-- Questions Filter -->
             <div class="form-group col-md-3">
                 <input type="text" class="form-control" name="questions_contains" value="{{ request.GET.questions_contains }}" placeholder="Question contains...">
@@ -68,6 +73,7 @@
         <p>Results: {{ metadatas|length }}</p>
         {% for meta in metadatas %}
             <h1>User: {{ meta.user.username }}</h1>
+            <p><strong>credentials:</strong> {{ meta.credentials|join:", " }}</p>
             <p><strong>Questions:</strong> {{ meta.questions|join:", " }}</p>
             <p><strong>Session Info:</strong> {{ meta.session_info }}</p>
             <p><strong>Last Updated:</strong> {{ meta.updated_at }}</p>

@@ -9,6 +9,7 @@ def search_view(request):
     # Get search and filter parameters from request
     q = request.GET.get("q", "")  # General search query
     username_contains = request.GET.get("username_contains", "")
+    credentials_contains = request.GET.get("credentials_contains", "")
     questions_contains = request.GET.get("questions_contains", "")
     session_info_contains = request.GET.get("session_info_contains", "")
     created_at_min = request.GET.get("created_at_min", "")
@@ -21,7 +22,7 @@ def search_view(request):
 
     # Apply full-text search if query is provided
     if q:
-        vector = SearchVector("user__username", "questions", "session_info")
+        vector = SearchVector("user__username", "credentials", "questions", "session_info")
         query = SearchQuery(q)
 
         metadatas = metadatas.annotate(
@@ -31,6 +32,8 @@ def search_view(request):
     # Apply additional filters
     if username_contains:
         metadatas = metadatas.filter(user__username__icontains=username_contains)
+    if credentials_contains:
+        metadatas = metadatas.filter(credentials__icontains=credentials_contains)
     if questions_contains:
         metadatas = metadatas.filter(questions__icontains=questions_contains)
     if session_info_contains:
@@ -51,6 +54,7 @@ def search_view(request):
         "metadatas": metadatas,
         "query": q,
         "username_contains": username_contains,
+        "credentials_contains": credentials_contains,
         "questions_contains": questions_contains,
         "session_info_contains": session_info_contains,
         "created_at_min": created_at_min,
