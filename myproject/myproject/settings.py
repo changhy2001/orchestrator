@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres', # postgresql 추가
-    'posts',
     'users',
     'search',
     'channels', # Channels 추가
