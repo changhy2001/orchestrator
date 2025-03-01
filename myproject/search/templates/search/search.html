@@ -69,17 +69,36 @@
     </form>
 
     <!-- Search Results -->
+    <!-- Search Results -->
     {% if metadatas %}
-        <p>Results: {{ metadatas|length }}</p>
-        {% for meta in metadatas %}
-            <h1>User: {{ meta.user.username }}</h1>
-            <p><strong>credentials:</strong> {{ meta.credentials|join:", " }}</p>
-            <p><strong>Questions:</strong> {{ meta.questions|join:", " }}</p>
-            <p><strong>Session Info:</strong> {{ meta.session_info }}</p>
-            <p><strong>Last Updated:</strong> {{ meta.updated_at }}</p>
-        {% endfor %}
+    <div class="small-break"></div>
+    <p>Results: {{ metadatas|length }}</p>
+    <div class="small-break"></div>
+    <div class="row">
+    {% for meta in metadatas %}
+        <div class="col-md-6 col-lg-4">
+        <div class="card mb-4">
+            <div class="card-body">
+            <h5 class="card-title">User: {{ meta.user.username }}</h5>
+            <p class="card-text">
+                <strong>Credentials:</strong> {{ meta.credentials|join:", " }}
+            </p>
+            <p class="card-text">
+                <strong>Questions:</strong> {{ meta.questions|join:", " }}
+            </p>
+            <p class="card-text">
+                <strong>Session Info:</strong> {{ meta.session_info }}
+            </p>
+            <p class="card-text">
+                <small class="text-muted">Last Updated: {{ meta.updated_at }}</small>
+            </p>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+    </div>
     {% else %}
-        <p>No results found.</p>
+    <p>No results found.</p>
     {% endif %}
 
 {% endblock %}
