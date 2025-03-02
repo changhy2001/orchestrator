@@ -11,3 +11,5 @@ venv/
 
 # Static files (if you don’t want to track collected files)
 staticfiles/
+
+*.tar
