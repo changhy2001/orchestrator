@@ -6,6 +6,7 @@ venv/
 *.log
 .env
 
+
 # OS files
 .DS_Store
 
