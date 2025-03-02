@@ -1,152 +1,182 @@
+/*--------------------------------------------------------------
+  Base Reset & Global Styles
+--------------------------------------------------------------*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html, body {
+  }
+  
+  :root {
+    --primary-color: #44B78B;
+    --accent-color: #81dbb8;
+    --error-color: #F00;
+    --background-color: black;
+    --text-color: whitesmoke;
+    --white: #fff;
+    --input-bg: #e9ecef;
+    --border-color: #ced4da;
+    --text-muted: #6c757d;
+  }
+  
+  html,
+  body {
     font-family: 'Arial', sans-serif;
-}
-
-body {
+  }
+  
+  body {
     min-height: 100vh;
-    background-color: black;
-    color: whitesmoke;
+    background-color: var(--background-color);
+    color: var(--text-color);
     font-size: 3rem;
-}
-
-nav {
+  }
+  
+  /*--------------------------------------------------------------
+    Layout Elements
+  --------------------------------------------------------------*/
+  nav {
     padding: 1rem;
-    background-color: #44B78B;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--white);
     font-size: 2.5rem;
-}
-
-main {
+  }
+  
+  main,
+  .form-with-validation {
     padding: 1rem;
-}
-
-section {
+  }
+  
+  section {
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     gap: 1rem;
-}
-
-h1,
-h2 {
+  }
+  
+  /* Headings & Paragraphs */
+  h1,
+  h2 {
     font-size: 2.5rem;
-}
-
-p {
+  }
+  
+  p {
     font-size: 1rem;
-}
-
-a {
+  }
+  
+  /* Links */
+  a {
     text-decoration: none;
-    color: #81dbb8;
-}
-
-a:hover {
-    opacity: .85;
-}
-
-.banner {
+    color: var(--accent-color);
+  }
+  
+  a:hover {
+    opacity: 0.85;
+  }
+  
+  /* Images */
+  .banner {
     display: block;
     width: 100%;
     max-width: 800px;
-}
-
-.form-with-validation {
+  }
+  
+  /*--------------------------------------------------------------
+    Forms & Input Styles
+  --------------------------------------------------------------*/
+  .form-with-validation {
     font-size: 1rem;
-    padding: 1rem;
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     gap: 1rem;
-}
-
-.form-with-validation div {
+  }
+  
+  .form-with-validation div {
     display: flex;
-    flex-flow: column;
+    flex-direction: column;
     gap: 0.5rem;
-}
-
-.form-with-validation input {
+  }
+  
+  .form-with-validation input {
     padding: 0.25rem;
     max-width: 300px;
-}
-
-.form-submit {
+  }
+  
+  .form-submit {
     padding: 0.5rem;
     border-radius: 10px;
     width: 125px;
-    background-color: #44B78B;
-}
-
-.helptext {
+    background-color: var(--primary-color);
+  }
+  
+  .helptext {
     font-size: 1rem;
     margin-left: 1rem;
-}
-
-.helptext ul {
+  }
+  
+  .helptext ul {
     list-style-type: none;
-}
-
-.errorlist {
-    color: #F00;
+  }
+  
+  .errorlist {
+    color: var(--error-color);
     margin-left: 2rem;
-}
-
-.errorlist li::marker {
+  }
+  
+  .errorlist li::marker {
     content: '🚨 ';
-}
-
-
-.logout {
+  }
+  
+  /* Logout */
+  .logout {
     display: inline-block;
-}
-
-.logout-button {
+  }
+  
+  .logout-button {
     font-size: 2.5rem;
-    background-color: rgb(0, 0, 0, 0);
+    background-color: transparent;
     border: none;
-}
-
-.logout-button:hover {
-    opacity: .85;
-}
-
-.small-label {
+  }
+  
+  .logout-button:hover {
+    opacity: 0.85;
+  }
+  
+  .small-label {
     font-size: 1rem;
-}
-
-.btn {
+  }
+  
+  /*--------------------------------------------------------------
+    Buttons
+  --------------------------------------------------------------*/
+  .btn {
     display: inline-block;
     font-weight: 400;
-    color: #fff;
+    color: var(--white);
     text-align: center;
     vertical-align: middle;
-    background-color: #44B78B;
-    border: 1px solid #44B78B;
-    padding: .375rem .75rem;
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color .15s ease-in-out, border-color .15s ease-in-out;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
   }
-
-.btn:hover {
+  
+  .btn:hover {
     background-color: #538773;
     border-color: #538773;
-}
-
-.btn-block {
+  }
+  
+  .btn-block {
     display: block;
     width: 100%;
-}
-
-/* Input Group Container */
-.input-group {
+  }
+  
+  /*--------------------------------------------------------------
+    Input Group
+  --------------------------------------------------------------*/
+  .input-group {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -154,20 +184,17 @@ a:hover {
     width: 100%;
   }
   
-  /* Input inside the group */
   .input-group > .form-control {
     flex: 1 1 auto;
     width: 1%;
     margin-bottom: 0;
   }
   
-  /* Prepend and Append containers */
   .input-group-prepend,
   .input-group-append {
     display: flex;
   }
   
-  /* Addon styling (text or icon) */
   .input-group-text {
     display: flex;
     align-items: center;
@@ -179,32 +206,43 @@ a:hover {
     color: #495057;
     text-align: center;
     white-space: nowrap;
-    background-color: #e9ecef;
-    border: 1px solid #ced4da;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
     border-radius: 0.25rem;
   }
   
-  /* Optional: Remove the right border of the input when an addon is appended */
   .input-group > .form-control.border-right-0 {
     border-right: 0;
   }
-
-.bg-transparent {
-    background-color: transparent !important;
-}
-
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -5px;
-    margin-left: -5px;
-}
-
-.row {
+  
+  /*--------------------------------------------------------------
+    Grid System
+  --------------------------------------------------------------*/
+  .form-row,
+  .row {
     display: flex;
     flex-wrap: wrap;
     margin-right: -15px;
     margin-left: -15px;
+  }
+  
+  .form-row {
+    margin-right: -5px;
+    margin-left: -5px;
+  }
+  
+  .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  
+  .col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: 5px;
+    padding-left: 5px;
   }
   
   .col-md-6 {
@@ -221,50 +259,39 @@ a:hover {
       padding-right: 15px;
       padding-left: 15px;
     }
-}
-
-.col-12 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding-right: 5px;
-    padding-left: 5px;
-    box-sizing: border-box;
-}
-
-.col-md-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
-    padding-right: 5px;
-    padding-left: 5px;
-    box-sizing: border-box;
-}
-
-.form-group {
+  }
+  
+  /*--------------------------------------------------------------
+    Form Elements
+  --------------------------------------------------------------*/
+  .form-group {
     margin-bottom: 1rem;
-}
-
-.form-control {
+  }
+  
+  .form-control {
     display: block;
     width: 100%;
-    height: calc(1.5em + .75rem + 2px);
-    padding: .375rem .75rem;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
     font-size: 1rem;
     line-height: 1.5;
     color: #495057;
-    background-color: #fff;
+    background-color: var(--white);
     background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
-
-label {
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  label {
     display: block;
     margin-bottom: 0.5rem;
-}
-
-.fa {
+  }
+  
+  /*--------------------------------------------------------------
+    Icons
+  --------------------------------------------------------------*/
+  .fa {
     display: inline-block;
     font-family: "FontAwesome";
     font-style: normal;
@@ -272,26 +299,31 @@ label {
     line-height: 1;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
-}
-
-.fa-search:before {
+  }
+  
+  .fa-search:before {
     content: "\f002";
-  }  
-
-.py-2 {
+  }
+  
+  /*--------------------------------------------------------------
+    Spacing Utilities
+  --------------------------------------------------------------*/
+  .py-2 {
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
-}
-
-/* For visual clarity */
-.box {
+  }
+  
+  /*--------------------------------------------------------------
+    Components
+  --------------------------------------------------------------*/
+  .box {
     width: 300px;
     margin: 1rem;
-}
-
-.card {
-    background-color: #fff;
-    border: 1px solid rgba(0,0,0,0.125);
+  }
+  
+  .card {
+    background-color: var(--white);
+    border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 0.25rem;
     margin-bottom: 1.5rem;
     display: flex;
@@ -307,7 +339,7 @@ label {
   .card-title {
     margin-bottom: 0.75rem;
     font-size: 1.25rem;
-    color: #81dbb8;
+    color: var(--accent-color);
   }
   
   .card-text {
@@ -325,10 +357,11 @@ label {
   }
   
   .text-muted {
-    color: #6c757d !important;
+    color: var(--text-muted) !important;
   }
-
+  
   .small-break {
     height: 10px;
     line-height: 10px;
   }
+  
