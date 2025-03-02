@@ -1,3 +1,4 @@
+# Option 1
 ## 설치 단계
 
 1. **GitHub에서 리포지토리 복제**
@@ -48,8 +49,35 @@
    brew services start nginx
    ```
    
-3. **Chrome/Safari 등 접속**
+3. **브라우저 접속**
    ```bash
    http://127.0.0.1/
    ```
+---
+# Option 2: Docker Image
+## 실행 방법
+   
+1. **도커 이미지 로드**
+   ```bash
+   docker load -i django-image.tar
+   ```
 
+2. **컨테이너 실행**
+   ```bash
+   docker run -p 8000:8000 my_django_app
+   ```
+   
+---
+# Option 3: Docker Compose file
+## 실행 방법
+   
+1. **Docker Compose로 컨테이너 빌드 및 실행**
+   ```bash
+   docker-compose up --build
+   ```
+
+2. **컨테이너 실행**
+   ```bash
+   http://localhost:8000
+   ```
+   
