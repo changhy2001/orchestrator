@@ -64,7 +64,7 @@
 
 2. **컨테이너 실행**
    ```bash
-   docker run -p 8000:8000 my_django_app
+   docker run -p 8000:8000 django-image
    ```
    
 ---
