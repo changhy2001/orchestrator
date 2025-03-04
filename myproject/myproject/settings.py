@@ -49,12 +49,18 @@ INSTALLED_APPS = [
     'users',
     'search',
     'channels', # Channels 추가
+    'corsheaders',
 ]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]  # We add your frontend URL here.
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']  # We add your frontend URL here.
 
 # ASGI 애플리케이션 경로 설정
 ASGI_APPLICATION = 'myproject.asgi.application'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
