@@ -1,47 +1,57 @@
 <template>
   <div id="app">
     <nav>
-      <!-- Using Vue Router links -->
-      <router-link to="/" aria-label="Home" title="Home">🏠</router-link> | 
-      <router-link to="/about" aria-label="About" title="About">🗒️</router-link> | 
-      <!-- Replace authentication logic with Vue data or state management if needed -->
-      <template v-if="userIsAuthenticated">
-        <router-link to="/search" aria-label="Search" title="Search">🔍</router-link> | 
-        <!-- Simulate a logout button -->
-        <button @click="logout" class="logout-button" aria-label="User Logout" title="User Logout">👋</button>
+      <!-- Navigation using Vue Router -->
+      <router-link to="/" aria-label="Home" title="Home">🏠</router-link> |
+      <router-link to="/about" aria-label="About" title="About">🗒️</router-link> |
+      <!-- Render based on authentication state -->
+      <template v-if="isAuthenticated">
+        <router-link to="/search" aria-label="Search" title="Search">🔍</router-link> |
+        <button @click="handleLogout" class="logout-button" aria-label="Logout" title="Logout">👋</button>
       </template>
       <template v-else>
-        <router-link to="/register" aria-label="User Registration" title="User Registration">🔏</router-link> | 
-        <router-link to="/login" aria-label="User Login" title="User Login">🔐</router-link>
+        <router-link to="/register" aria-label="Register" title="Register">🔏</router-link> |
+        <router-link to="/login" aria-label="Login" title="Login">🔐</router-link>
       </template>
     </nav>
     <main>
-      <!-- Route outlet: this is where your Home, About, etc. pages will display -->
       <router-view />
     </main>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  name: "App",
-  data() {
-    return {
-      // Replace with proper authentication check
-      userIsAuthenticated: false,
-    };
+  name: 'App',
+  computed: {
+    ...mapGetters(['isAuthenticated', 'user'])
   },
   methods: {
-    logout() {
-      // Implement logout logic as needed
-      this.userIsAuthenticated = false;
-      console.log("User logged out");
-    },
-  },
+    ...mapActions(['logout']),
+    async handleLogout() {
+      const success = await this.logout();
+      if (success) {
+        this.$router.push({ name: 'Home' });
+      }
+    }
+  }
 };
 </script>
 
 <style>
-/* Global styles or import your CSS file here */
 @import "@/assets/css/style.css";
+
+nav {
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-size: 2.5rem;
+}
+.logout-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
 </style>

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     'search',
     'channels', # Channels 추가
+    'rest_framework',
     'corsheaders',
 ]
 
