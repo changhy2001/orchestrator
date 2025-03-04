@@ -21,6 +21,7 @@ export default createStore({
       commit('SET_LOADING', true);
       try {
         const response = await axios.get('/users/api/auth-status/');
+        console.log("Auth status response:", response.data);
         if (response.data.authenticated) {
           commit('SET_AUTH', { isAuthenticated: true, user: response.data.username });
           // Save to local storage
@@ -44,6 +45,7 @@ export default createStore({
       try {
         const response = await axios.post('/users/api/login/', credentials);
         if (response.data.success) {
+          // After successful login, update auth state (by calling checkAuthStatus, for example)
           await dispatch('checkAuthStatus');
           return true;
         } else {

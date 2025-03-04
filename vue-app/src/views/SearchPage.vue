@@ -63,16 +63,16 @@
       <p>Results: {{ results.length }}</p>
       <div class="small-break"></div>
       <div class="row">
-        <div v-for="meta in results" :key="meta.user.username" class="col-md-6 col-lg-4">
+        <div v-for="(meta, index) in results" :key="index" class="col-md-6 col-lg-4">
           <div class="card mb-4">
             <div class="card-body">
               <h5 class="card-title">
-                <router-link :to="{ name: 'SearchDetail', params: { username: meta.user.username } }">
-                  User: {{ meta.user.username }}
+                <router-link :to="{ name: 'SearchDetail', params: { username: meta.user_username } }">
+                  User: {{ meta.user_username }}
                 </router-link>
               </h5>
               <p class="card-text">
-                <strong>Credentials:</strong> {{ meta.credentials.join(', ') }}
+                <strong>Credentials:</strong> {{ formatCredentials(meta.credentials) }}
               </p>
               <p class="card-text">
                 <strong>Questions:</strong> {{ meta.questions.join(', ') }}
@@ -96,6 +96,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
   name: "SearchPage",
   data() {
@@ -115,36 +116,30 @@ export default {
     }
   },
   mounted() {
-    // Optionally, initialize query from URL query parameters
     Object.assign(this.query, this.$route.query);
-    // Optionally perform search automatically if query exists
-    if (this.query.q || this.query.username_contains) {
-      this.performSearch();
-    }
+    this.performSearch();
   },
   methods: {
     performSearch() {
-      // Replace '/api/search' with your API endpoint URL.
-      axios.get('/api/search', { params: this.query })
+      axios.get('/search/api/', { params: this.query })
         .then(response => {
           this.results = response.data;
-          // Update URL query parameters to reflect the search
           this.$router.push({ query: this.query });
         })
         .catch(error => {
           console.error('Error during search:', error);
         });
-      // For demo purposes, you can simulate results:
-      // this.results = [{
-      //   user: { username: "demoUser" },
-      //   credentials: ["cred1", "cred2"],
-      //   questions: ["What is Vue?", "How to use Axios?"],
-      //   session_info: "Session details",
-      //   updated_at: "2023-01-01"
-      // }];
+    },
+    formatCredentials(credentials) {
+      if (Array.isArray(credentials)) {
+        return credentials.join(', ');
+      } else if (typeof credentials === 'object') {
+        return JSON.stringify(credentials);
+      }
+      return credentials;
     }
   }
-}
+};
 </script>
 
 <style scoped>

@@ -6,9 +6,13 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/users/api': {
-        target: 'http://localhost:8000', // Django server URL
+        target: 'http://localhost:8000', // Django server URL for user endpoints
         changeOrigin: true,
-      }
+      },
+      '/search/api': {
+        target: 'http://localhost:8000', // Django server URL for search endpoints
+        changeOrigin: true,
+      },
     }
   },
   chainWebpack: config => {

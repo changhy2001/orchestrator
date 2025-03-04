@@ -39,27 +39,24 @@ export default {
       form: {
         username: '',
         password: '',
-        // Optionally, include "next" if needed (e.g., this.$route.query.next)
       }
     };
   },
   methods: {
-    submitLogin() {
-        axios.post('/users/api/login/', this.form)
-            .then(response => {
-            if (response.data.success) {
-                console.log('Login successful:', response.data.message);
-                // e.g., redirect or store auth state
-                this.$router.push({ name: 'Search' });
-            } else {
-                // Show errors
-                console.error('Login errors:', response.data.errors);
-            }
-            })
-            .catch(error => {
-            console.error('Login error:', error);
-            });
+    async submitLogin() {
+      try {
+        const response = await axios.post('/users/api/login/', this.form);
+        if (response.data.success) {
+          console.log('Login successful:', response.data.message);
+          await this.$store.dispatch('checkAuthStatus');
+          this.$router.push({ name: 'Search' });
+        } else {
+          console.error('Login errors:', response.data.errors);
         }
+      } catch (error) {
+        console.error('Login error:', error);
+      }
+    }
   }
 };
 </script>
