@@ -53,8 +53,8 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]  # We add your frontend URL here.
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']  # We add your frontend URL here.
+CORS_ALLOWED_ORIGINS = ["http://localhost:8081"]  # We add your frontend URL here.
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8081']  # We add your frontend URL here.
 
 # ASGI 애플리케이션 경로 설정
 ASGI_APPLICATION = 'myproject.asgi.application'
