@@ -10,11 +10,11 @@
 │   │   ├── settings.py
 │   │   ├── urls.py
 │   │   └── asgi.py
-│   ├── search
+│   ├── search                      # DB 검색 기능
 │   │   ├── models.py
 │   │   ├── urls.py
 │   │   └── api_views.py
-│   ├── users
+│   ├── users                       # 유저 관리 (회원가입, 로그인, 로그아웃)
 │   │   ├── models.py
 │   │   ├── urls.py
 │   │   └── api_views.py
