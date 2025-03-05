@@ -105,17 +105,16 @@
 ### 설명
 
 - **Client (브라우저)**  
-  - 사용자가 웹 브라우저에서 `http://localhost` 주소로 접속합니다.
+  - 사용자는 웹 브라우저에서 `http://localhost` 주소로 접속
 
 - **Nginx (Reverse Proxy & 정적 파일 서버)**  
-  - 포트 80에서 요청을 받고, Vue 앱의 빌드 산출물(`dist` 폴더의 내용)을 서빙합니다.  
-  - `/users/api/` 등의 API 요청은 `http://django_web:8000` (또는 로컬에서 노출된 `http://localhost:8000`)으로 프록시합니다.
+  - 포트 80에서 요청을 받고, Vue 앱의 빌드 산출물(`dist` 폴더의 내용) 서빙  
+  - `/users/api/` 등의 API 요청은 `http://django_web:8000` (또는 로컬에서 노출된 `http://localhost:8000`)으로 프록시
 
 - **Django (백엔드 서버)**  
-  - API 요청을 처리하고, 비즈니스 로직을 수행합니다.  
-  - `DATABASE_URL` 환경변수를 통해 Railway의 PostgreSQL 데이터베이스에 연결합니다.
+  - API 요청을 처리하고, 비즈니스 로직 수행  
+  - `DATABASE_URL` 환경변수를 통해 PostgreSQL 데이터베이스와 연동
 
-- **Database (Railway PostgreSQL)**  
-  - 실제 데이터 저장소로, 주소는 `mainline.proxy.rlwy.net:43252`입니다.
+- **Database (PostgreSQL)**  
+  - 실제 데이터 저장소, 주소는 `mainline.proxy.rlwy.net:43252`
 
-이와 같이 각 서버의 주소와 역할을 명시하면, 다른 개발자들도 해당 환경을 쉽게 이해하고 재현할 수 있습니다.
