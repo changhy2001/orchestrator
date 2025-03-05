@@ -2,16 +2,12 @@ services:
   web:
     image: django-app:latest
     container_name: django_web
-    ports:
-      - "8000:8000"   # for testing purpose (remove for production)
     env_file:
-      - /Users/changhy2001/Desktop/login/backend/.env
+      - /Users/changhy2001/Desktop/login/.env
 
   frontend:
     image: vue-app:latest
     container_name: vue_frontend
-    expose:
-      - "80"
 
   nginx:
     image: nginx:alpine
