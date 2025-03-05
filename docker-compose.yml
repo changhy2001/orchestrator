@@ -2,15 +2,10 @@ services:
   web:
     image: django-app:latest
     container_name: django_web
-    command: daphne myproject.asgi:application --bind 0.0.0.0 --port 8000
-    expose:
-      - "8000"
     ports:
-      - "8000:8000"
+      - "8000:8000"   # for testing purpose (remove for production)
     env_file:
-      - ./backend/.env
-    volumes:
-      - ./static_volume:/app/myproject/staticfiles
+      - /Users/changhy2001/Desktop/login/backend/.env
 
   frontend:
     image: vue-app:latest
@@ -24,8 +19,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./frontend/dist:/usr/share/nginx/html:ro
-      - ./backend/config/nginx:/etc/nginx/conf.d:ro
+      - /Users/changhy2001/Desktop/login/frontend/dist:/usr/share/nginx/html:ro
+      - /Users/changhy2001/Desktop/login/backend/config/nginx:/etc/nginx/conf.d:ro
     depends_on:
       - web
       - frontend

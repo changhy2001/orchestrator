@@ -14,6 +14,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 
 EXPOSE 8000
 
-RUN python manage.py collectstatic --noinput
-
 CMD ["daphne", "myproject.asgi:application", "--bind", "0.0.0.0", "--port", "8000"]
