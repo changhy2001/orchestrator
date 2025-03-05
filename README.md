@@ -1,3 +1,45 @@
+## 프로젝트 구조
+
+```plaintext
+.
+├── backend
+│   ├── config
+│   │   └── nginx
+│   │       └── myproject.conf 
+│   ├── myproject
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── asgi.py
+│   ├── search
+│   │   ├── models.py
+│   │   ├── urls.py
+│   │   └── api_views.py
+│   ├── users
+│   │   ├── models.py
+│   │   ├── urls.py
+│   │   └── api_views.py
+│   ├── .env.template
+│   ├── Dockerfile
+│   ├── manage.py
+│   └── requirements.txt
+│
+└── frontend
+    ├── public
+    │   ├── favicon.ico
+    │   └── index.html 
+    ├── src
+    │   ├── assets
+    │   ├── components
+    │   ├── router
+    │   ├── store
+    │   ├── views
+    │   ├── App.vue
+    │   └── main.js
+    └── Dockerfile
+```
+
+---
+
 ## 설치 단계
 
 1. **GitHub에서 리포지토리 복제**
