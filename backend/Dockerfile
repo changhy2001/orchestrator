@@ -8,13 +8,11 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y gcc libpq-dev netcat-openbsd && rm -rf /var/lib/apt/lists/*
 
-COPY . /app
+COPY . .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 EXPOSE 8000
-
-WORKDIR /app/myproject
 
 RUN python manage.py collectstatic --noinput
 

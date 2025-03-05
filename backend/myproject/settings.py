@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -49,12 +49,13 @@ INSTALLED_APPS = [
     'users',
     'search',
     'channels', # Channels 추가
+    'rest_framework',
     'corsheaders',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]  # We add your frontend URL here.
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']  # We add your frontend URL here.
+CORS_ALLOWED_ORIGINS = ["http://localhost:8081"]  # We add your frontend URL here.
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8081']  # We add your frontend URL here.
 
 # ASGI 애플리케이션 경로 설정
 ASGI_APPLICATION = 'myproject.asgi.application'
@@ -75,7 +76,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
