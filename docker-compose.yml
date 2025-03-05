@@ -10,8 +10,7 @@ services:
     env_file:
       - ./backend/.env
     volumes:
-      - static_volume:/app/myproject/staticfiles
-      - media_volume:/app/media
+      - ./static_volume:/app/myproject/staticfiles
 
   frontend:
     image: vue-app:latest
@@ -30,7 +29,3 @@ services:
     depends_on:
       - web
       - frontend
-
-volumes:
-  static_volume:
-  media_volume:
