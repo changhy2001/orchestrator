@@ -2,6 +2,7 @@
 
 ```plaintext
 .
+├── docker-compose.yml
 ├── backend
 │   ├── config
 │   │   └── nginx
