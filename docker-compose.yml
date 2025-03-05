@@ -12,15 +12,12 @@ services:
     volumes:
       - static_volume:/app/myproject/staticfiles
       - media_volume:/app/media
-    depends_on:
-      - db
 
   frontend:
     image: vue-app:latest
     container_name: vue_frontend
     expose:
-      - "80"    # Exposes port 80 internally only
-    # No ports mapping here because Nginx will be the public entry point
+      - "80"
 
   nginx:
     image: nginx:alpine
@@ -34,15 +31,6 @@ services:
       - web
       - frontend
 
-  db:
-    image: postgres:13
-    container_name: postgres_db
-    env_file:
-      - ./backend/.env
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
 volumes:
   static_volume:
   media_volume:
-  postgres_data:
