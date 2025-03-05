@@ -119,3 +119,29 @@
 - **Database (PostgreSQL)**  
   - 실제 데이터 저장소, 주소는 `mainline.proxy.rlwy.net:43252`
 
+
+---
+
+## 실행 방법
+
+1. Home 화면
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 52 49 PM" src="https://github.com/user-attachments/assets/8ad2c8be-1d4d-4e02-b3a3-529a800ff440" />
+
+2. About 화면
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 53 14 PM" src="https://github.com/user-attachments/assets/2f46b7ce-236b-4ebc-bef6-5a37fe9eb18e" />
+
+3. Register 화면 (회원가입)
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 53 35 PM" src="https://github.com/user-attachments/assets/e61ee4d0-ce53-42ba-804b-0592c6dc1618" />
+
+4. Login 화면
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 53 45 PM" src="https://github.com/user-attachments/assets/bf02f4cb-ddf6-430c-a4eb-6935522ebfd5" />
+
+5. 검색 화면 (정삭적으로 로그인되었을 경우)
+   username, credential, qustion, date 별 필터링 기능을 통한 검색
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 57 20 PM" src="https://github.com/user-attachments/assets/458d67a0-32bf-4af1-93f0-1e3b7a21482f" />
+
+6. 로그아웃
+   손모양 아이콘을 클릭하면 정상적으로 로그아웃되며 Home 화면으로 돌아감
+   <img width="1437" alt="Screenshot 2025-03-05 at 1 57 39 PM" src="https://github.com/user-attachments/assets/dcc03622-e720-441a-9fa4-b1a1464fc809" />
+   
+---
