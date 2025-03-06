@@ -2,16 +2,8 @@ services:
   web:
     image: django-app:latest
     container_name: django_web
-    ports:
-      - "8000:8000"   # for testing purpose (remove for production)
     env_file:
-      - /Users/changhy2001/Desktop/login/backend/.env
-
-  frontend:
-    image: vue-app:latest
-    container_name: vue_frontend
-    expose:
-      - "80"
+      - .env
 
   nginx:
     image: nginx:alpine
@@ -19,8 +11,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /Users/changhy2001/Desktop/login/frontend/dist:/usr/share/nginx/html:ro
-      - /Users/changhy2001/Desktop/login/backend/config/nginx:/etc/nginx/conf.d:ro
+        - ./frontend/dist:/usr/share/nginx/html:ro
+        - ./backend/config/nginx:/etc/nginx/conf.d:ro
     depends_on:
       - web
-      - frontend
