@@ -3,7 +3,7 @@ services:
     image: django-app:latest
     container_name: django_web
     env_file:
-      - /Users/changhy2001/Desktop/orchestrator/.env
+      - .env
 
   nginx:
     image: nginx:alpine
@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /Users/changhy2001/Desktop/orchestrator/frontend/dist:/usr/share/nginx/html:ro
-      - /Users/changhy2001/Desktop/orchestrator/backend/config/nginx:/etc/nginx/conf.d:ro
+        - ./frontend/dist:/usr/share/nginx/html:ro
+        - ./backend/config/nginx:/etc/nginx/conf.d:ro
     depends_on:
       - web
