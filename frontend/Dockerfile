@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM node:18-alpine AS build-stage
 
 WORKDIR /app
 
@@ -9,3 +9,9 @@ RUN npm install
 COPY . .
 
 RUN npm run build
+
+FROM alpine:latest
+
+WORKDIR /app
+
+COPY --from=build-stage /app/dist ./dist

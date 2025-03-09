@@ -15,14 +15,4 @@ module.exports = defineConfig({
       },
     }
   },
-  chainWebpack: config => {
-    if (config.has('eslint')) {
-      config.plugin('eslint').tap(args => {
-        if (args && args[0] && args[0].extensions) {
-          delete args[0].extensions;
-        }
-        return args;
-      });
-    }
-  }
 });

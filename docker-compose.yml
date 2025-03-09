@@ -1,9 +1,20 @@
 services:
   web:
-    image: django-app:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: django_web
     env_file:
       - .env
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vue_app
+    volumes:
+      - vue-dist:/app/dist
+    command: ["echo", "Vue build complete"]
 
   nginx:
     image: nginx:alpine
@@ -11,7 +22,11 @@ services:
     ports:
       - "80:80"
     volumes:
-        - ./frontend/dist:/usr/share/nginx/html:ro
-        - ./backend/config/nginx:/etc/nginx/conf.d:ro
+      - ./backend/config/nginx:/etc/nginx/conf.d:ro
+      - vue-dist:/usr/share/nginx/html:ro
     depends_on:
       - web
+      - frontend
+
+volumes:
+  vue-dist:
