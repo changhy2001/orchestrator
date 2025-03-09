@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>User Login</h1>
+    <!-- Display error message if present -->
+    <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+    
     <!-- The form submission is handled by the submitLogin method -->
     <form class="form-with-validation" @submit.prevent="submitLogin">
       <div class="form-group">
@@ -23,7 +26,6 @@
           class="form-control"
         />
       </div>
-      <!-- If you need to send a "next" parameter, you could include it as hidden input -->
       <button type="submit" class="form-submit">Login</button>
     </form>
   </div>
@@ -39,22 +41,26 @@ export default {
       form: {
         username: '',
         password: '',
-      }
+      },
+      errorMessage: '' // Holds a single error message
     };
   },
   methods: {
     async submitLogin() {
+      // Clear any previous error messages
+      this.errorMessage = '';
       try {
         const response = await axios.post('/users/api/login/', this.form);
         if (response.data.success) {
-          console.log('Login successful:', response.data.message);
           await this.$store.dispatch('checkAuthStatus');
           this.$router.push({ name: 'Search' });
         } else {
-          console.error('Login errors:', response.data.errors);
+          // Set a fixed error message
+          this.errorMessage = 'Invalid username or password.';
         }
       } catch (error) {
-        console.error('Login error:', error);
+        // Fallback error message
+        this.errorMessage = 'Invalid username or password.';
       }
     }
   }
