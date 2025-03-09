@@ -42,8 +42,8 @@
 
 1. **GitHub에서 리포지토리 복제**
    ```bash
-   git clone https://github.com/changhy2001/django.git
-   cd django
+   git clone https://github.com/changhy2001/orchestrator.git
+   cd orchestrator
    ```
 
 2. **환경변수 설정: .env.template 사용하여 .env 파일 생성**
