@@ -2,7 +2,7 @@ FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=myproject.settings
+ENV DJANGO_SETTINGS_MODULE=core.settings
 
 WORKDIR /app
 
@@ -12,4 +12,4 @@ COPY . .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-CMD ["daphne", "myproject.asgi:application", "--bind", "0.0.0.0", "--port", "8000"]
+CMD ["daphne", "core.asgi:application", "--bind", "0.0.0.0", "--port", "8000"]

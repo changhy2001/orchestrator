@@ -7,8 +7,8 @@
 ├── backend
 │   ├── config
 │   │   └── nginx
-│   │       └── myproject.conf 
-│   ├── myproject
+│   │       └── project.conf 
+│   ├── core
 │   │   ├── settings.py
 │   │   ├── urls.py
 │   │   └── asgi.py
