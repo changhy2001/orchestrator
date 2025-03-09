@@ -3,6 +3,7 @@
 ```plaintext
 .
 ├── docker-compose.yml
+├── .env.template
 ├── backend
 │   ├── config
 │   │   └── nginx
@@ -19,15 +20,11 @@
 │   │   ├── models.py
 │   │   ├── urls.py
 │   │   └── api_views.py
-│   ├── .env.template
 │   ├── Dockerfile
 │   ├── manage.py
 │   └── requirements.txt
 │
 └── frontend
-    ├── public
-    │   ├── favicon.ico
-    │   └── index.html 
     ├── src
     │   ├── assets
     │   ├── components
