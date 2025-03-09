@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>Register a New User</h1>
+    <!-- Display error message if present -->
+    <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+    
     <form class="form-with-validation" @submit.prevent="submitRegister">
       <!-- Username Field -->
       <div class="form-group">
@@ -67,45 +70,45 @@ export default {
         username: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      errorMessage: ''  // Holds a single error message
     };
   },
-    methods: {
-      async submitRegister() {
-        // Basic client-side check to ensure passwords match
-        if (this.form.password !== this.form.confirmPassword) {
-          console.error('Passwords do not match');
-          return;
-        }
+  methods: {
+    async submitRegister() {
+      // Clear any previous error message
+      this.errorMessage = '';
 
-        // Prepare data for the API to match UserCreationForm fields
-        const requestData = {
-          username: this.form.username,
-          password1: this.form.password,
-          password2: this.form.confirmPassword
-        };
+      // Basic client-side check to ensure passwords match
+      if (this.form.password !== this.form.confirmPassword) {
+        this.errorMessage = 'Passwords do not match.';
+        return;
+      }
 
-        try {
-          const response = await axios.post('/users/api/register/', requestData);
-          if (response.data.success) {
-            console.log('Registration successful:', response.data.message);
-            await this.$store.dispatch('checkAuthStatus');
-            this.$router.push({ name: 'Search' });
-          } else {
-            console.error('Registration errors:', response.data.errors);
-          }
-        } catch (error) {
-          if (error.response) {
-            console.error('Registration error:', error.response.data);
-          } else {
-            console.error('Registration error:', error);
-          }
+      // Prepare data for the API to match UserCreationForm fields
+      const requestData = {
+        username: this.form.username,
+        password1: this.form.password,
+        password2: this.form.confirmPassword
+      };
+
+      try {
+        const response = await axios.post('/users/api/register/', requestData);
+        if (response.data.success) {
+          await this.$store.dispatch('checkAuthStatus');
+          this.$router.push({ name: 'Search' });
+        } else {
+          // Set a fixed error message if registration fails
+          this.errorMessage = 'Registration unsuccessful. Please check your input.';
         }
+      } catch (error) {
+        this.errorMessage = 'Registration unsuccessful. Please try again.';
       }
     }
+  }
 };
 </script>
 
 <style scoped>
-/* Component-specific styles can be added here, or rely on your global CSS */
+
 </style>
