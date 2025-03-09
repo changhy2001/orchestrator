@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres', # postgresql 추가
     'users',
     'search',
-    'channels', # Channels 추가
+    'channels',
     'rest_framework',
 ]
 
@@ -91,15 +91,6 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-#sqlite3
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
 #postresql
 DATABASES = {
     'default': env.db(),
@@ -135,18 +126,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-"""
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-"""
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
