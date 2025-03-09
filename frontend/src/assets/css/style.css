@@ -35,10 +35,10 @@
     Layout Elements
   --------------------------------------------------------------*/
   nav {
-    padding: 1rem;
+    padding: 1.2rem;
     background-color: var(--primary-color);
     color: var(--white);
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   
   main,
@@ -105,6 +105,12 @@
     border-radius: 10px;
     width: 125px;
     background-color: var(--primary-color);
+    cursor: pointer;
+  }
+
+  .form-submit:hover {
+    background-color: #538773;
+    border-color: #538773;
   }
   
   .helptext {
@@ -130,13 +136,22 @@
     display: inline-block;
   }
   
-  .logout-button {
-    font-size: 2.5rem;
-    background-color: transparent;
+  .nav-button {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    background-color: var(--primary-color);
+    color: #d5eed2;
     border: none;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .nav-button.router-link-active {
+    color: var(--white);
   }
   
-  .logout-button:hover {
+  .nav-button:hover {
     opacity: 0.85;
   }
   

@@ -2,16 +2,16 @@
   <div id="app">
     <nav>
       <!-- Navigation using Vue Router -->
-      <router-link to="/" aria-label="Home" title="Home">Home</router-link> |
-      <router-link to="/about" aria-label="About" title="About">About</router-link> |
+      <router-link to="/" class="nav-button" aria-label="Home" title="Home">Home</router-link>
+      <router-link to="/about" class="nav-button" aria-label="About" title="About">About</router-link>
       <!-- Render based on authentication state -->
       <template v-if="isAuthenticated">
-        <router-link to="/search" aria-label="Search" title="Search">Search</router-link> |
-        <button @click="handleLogout" class="logout-button" aria-label="Logout" title="Logout">Logout</button>
+        <router-link to="/search" class="nav-button" aria-label="Search" title="Search">Search</router-link>
+        <button @click="handleLogout" class="nav-button" aria-label="Logout" title="Logout">Logout</button>
       </template>
       <template v-else>
-        <router-link to="/register" aria-label="Register" title="Register">Register</router-link> |
-        <router-link to="/login" aria-label="Login" title="Login">Login</router-link>
+        <router-link to="/register" class="nav-button" aria-label="Register" title="Register">Register</router-link>
+        <router-link to="/login" class="nav-button" aria-label="Login" title="Login">Login</router-link>
       </template>
     </nav>
     <main>
