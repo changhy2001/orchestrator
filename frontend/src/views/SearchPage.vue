@@ -62,31 +62,30 @@
       <div class="small-break"></div>
       <p>Results: {{ results.length }}</p>
       <div class="small-break"></div>
-      <div class="row">
-        <div v-for="(meta, index) in results" :key="index" class="col-md-6 col-lg-4">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">
-                <router-link :to="{ name: 'SearchDetail', params: { username: meta.user_username } }">
-                  User: {{ meta.user_username }}
-                </router-link>
-              </h5>
-              <p class="card-text">
-                <strong>Credentials:</strong> {{ formatCredentials(meta.credentials) }}
-              </p>
-              <p class="card-text">
-                <strong>Questions:</strong> {{ meta.questions.join(', ') }}
-              </p>
-              <p class="card-text">
-                <strong>Session Info:</strong> {{ meta.session_info }}
-              </p>
-              <p class="card-text">
-                <small class="text-muted">Last Updated: {{ meta.updated_at }}</small>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <table class="table custom-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Credentials</th>
+            <th>Questions</th>
+            <th>Session Info</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(meta, index) in results" :key="index">
+            <td>
+              <router-link :to="{ name: 'SearchDetail', params: { username: meta.user_username } }">
+                {{ meta.user_username }}
+              </router-link>
+            </td>
+            <td>{{ formatCredentials(meta.credentials) }}</td>
+            <td>{{ meta.questions.join(', ') }}</td>
+            <td>{{ meta.session_info }}</td>
+            <td>{{ meta.updated_at }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div v-else>
       <p>No results found.</p>
@@ -144,4 +143,22 @@ export default {
 
 <style scoped>
 /* Add component-specific styles if needed */
+
+/* Reduce text size for the table */
+.custom-table {
+  font-size: 1rem;
+  border-spacing: 10px;
+}
+
+/* Override table borders to be white */
+.custom-table th,
+.custom-table td {
+  border: 1px solid #fff !important;
+  padding: 8px;
+}
+
+/* Optional spacing adjustments */
+.small-break {
+  margin: 10px 10px;
+}
 </style>
