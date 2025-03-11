@@ -15,11 +15,11 @@
 │   ├── search                      # DB 검색 기능
 │   │   ├── models.py
 │   │   ├── urls.py
-│   │   └── api_views.py
+│   │   └── views.py
 │   ├── users                       # 유저 관리 (회원가입, 로그인, 로그아웃)
 │   │   ├── models.py
 │   │   ├── urls.py
-│   │   └── api_views.py
+│   │   └── views.py
 │   ├── Dockerfile
 │   ├── manage.py
 │   └── requirements.txt
@@ -77,7 +77,7 @@
          │                     Nginx                    │
          │           (http://localhost:80)              │
          │  - 정적 파일: /usr/share/nginx/html (Vue dist) │
-         │  - API 프록시: /users/api/ 요청을 Django로 전달   │
+         │  - API 프록시: /users/ 요청을 Django로 전달       │
          │       (proxy_pass http://django_web:8000)    │
          └──────────────────────────────────────────────┘
                                │
@@ -106,7 +106,7 @@
 
 - **Nginx (Reverse Proxy & 정적 파일 서버)**  
   - 포트 80에서 요청을 받고, Vue 앱의 빌드 산출물(`dist` 폴더의 내용) 서빙  
-  - `/users/api/` 등의 API 요청은 `http://django_web:8000`으로 프록시
+  - `/users/` 등의 API 요청은 `http://django_web:8000`으로 프록시
 
 - **Django (백엔드 서버)**  
   - API 요청을 처리하고, 비즈니스 로직 수행  
