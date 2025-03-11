@@ -93,7 +93,7 @@ export default {
       };
 
       try {
-        const response = await axios.post('/users/api/register/', requestData);
+        const response = await axios.post('/users/register/', requestData);
         if (response.data.success) {
           await this.$store.dispatch('checkAuthStatus');
           this.$router.push({ name: 'Search' });

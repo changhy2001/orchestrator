@@ -121,7 +121,7 @@ export default {
   },
   methods: {
     performSearch() {
-      axios.get('/search/api/', { params: this.query })
+      axios.get('/search', { params: this.query })
         .then(response => {
           this.results = response.data;
           this.$router.push({ query: this.query });

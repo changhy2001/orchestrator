@@ -1,72 +1,81 @@
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.utils.dateparse import parse_date
+from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated  # or allow any
 from .models import UserMeta
+from .serializers import UserMetaSerializer
 
-@login_required(login_url="/users/login/")
-def search_view(request):
-    # Get search and filter parameters from request
-    q = request.GET.get("q", "")  # General search query
-    username_contains = request.GET.get("username_contains", "")
-    credentials_contains = request.GET.get("credentials_contains", "")
-    questions_contains = request.GET.get("questions_contains", "")
-    session_info_contains = request.GET.get("session_info_contains", "")
-    created_at_min = request.GET.get("created_at_min", "")
-    created_at_max = request.GET.get("created_at_max", "")
-    updated_at_min = request.GET.get("updated_at_min", "")
-    updated_at_max = request.GET.get("updated_at_max", "")
+class SearchAPIView(APIView):
+    permission_classes = [IsAuthenticated]  # or use an alternative
 
-    # Start with all UserMeta objects
-    metadatas = UserMeta.objects.all()
+    def get(self, request, *args, **kwargs):
+        q = request.query_params.get("q", "")
+        username_contains = request.query_params.get("username_contains", "")
+        credentials_contains = request.query_params.get("credentials_contains", "")
+        questions_contains = request.query_params.get("questions_contains", "")
+        session_info_contains = request.query_params.get("session_info_contains", "")
+        created_at_min = request.query_params.get("created_at_min", "")
+        created_at_max = request.query_params.get("created_at_max", "")
+        updated_at_min = request.query_params.get("updated_at_min", "")
+        updated_at_max = request.query_params.get("updated_at_max", "")
 
-    # Apply full-text search if query is provided
-    if q:
-        vector = SearchVector("user__username", "credentials", "questions", "session_info")
-        query = SearchQuery(q)
+        # Start with all UserMeta objects
+        metadatas = UserMeta.objects.all()
 
-        metadatas = metadatas.annotate(
-            rank=SearchRank(vector, query)
-        ).filter(rank__gte=0.001).order_by("-rank")
+        # Apply full-text search if query is provided
+        if q:
+            vector = SearchVector("user__username", "credentials", "questions", "session_info")
+            query = SearchQuery(q)
 
-    # Apply additional filters
-    if username_contains:
-        metadatas = metadatas.filter(user__username__icontains=username_contains)
-    if credentials_contains:
-        metadatas = metadatas.filter(credentials__icontains=credentials_contains)
-    if questions_contains:
-        metadatas = metadatas.filter(questions__icontains=questions_contains)
-    if session_info_contains:
-        metadatas = metadatas.filter(session_info__icontains=session_info_contains)
+            metadatas = (
+                metadatas.annotate(rank=SearchRank(vector, query))
+                .filter(rank__gte=0.001)
+                .order_by("-rank")
+            )
 
-    # Apply date range filters
-    if created_at_min:
-        metadatas = metadatas.filter(created_at__gte=parse_date(created_at_min))
-    if created_at_max:
-        metadatas = metadatas.filter(created_at__lte=parse_date(created_at_max))
-    if updated_at_min:
-        metadatas = metadatas.filter(updated_at__gte=parse_date(updated_at_min))
-    if updated_at_max:
-        metadatas = metadatas.filter(updated_at__lte=parse_date(updated_at_max))
+        # Additional filters
+        if username_contains:
+            metadatas = metadatas.filter(user__username__icontains=username_contains)
+        if credentials_contains:
+            metadatas = metadatas.filter(credentials__icontains=credentials_contains)
+        if questions_contains:
+            metadatas = metadatas.filter(questions__icontains=questions_contains)
+        if session_info_contains:
+            metadatas = metadatas.filter(session_info__icontains=session_info_contains)
 
-    # Context to send to template
-    context = {
-        "metadatas": metadatas,
-        "query": q,
-        "username_contains": username_contains,
-        "credentials_contains": credentials_contains,
-        "questions_contains": questions_contains,
-        "session_info_contains": session_info_contains,
-        "created_at_min": created_at_min,
-        "created_at_max": created_at_max,
-        "updated_at_min": updated_at_min,
-        "updated_at_max": updated_at_max,
-    }
+        # Date range filters
+        if created_at_min:
+            metadatas = metadatas.filter(created_at__gte=parse_date(created_at_min))
+        if created_at_max:
+            metadatas = metadatas.filter(created_at__lte=parse_date(created_at_max))
+        if updated_at_min:
+            metadatas = metadatas.filter(updated_at__gte=parse_date(updated_at_min))
+        if updated_at_max:
+            metadatas = metadatas.filter(updated_at__lte=parse_date(updated_at_max))
 
-    return render(request, "search/search.html", context)
+        # Convert to a list of dictionaries (basic approach)
+        # or you can use a Serializer if you prefer
+        results = []
+        for meta in metadatas:
+            results.append({
+                "user_username": meta.user.username,
+                "credentials": meta.credentials,
+                "questions": meta.questions,
+                "session_info": meta.session_info,
+                "created_at": meta.created_at,
+                "updated_at": meta.updated_at,
+            })
 
-@login_required
-def detail(request, username):
-    meta = get_object_or_404(UserMeta, user__username=username)
-    context = {"meta": meta}
-    return render(request, "search/search_detail.html", context)
+        return Response(results)
+    
+
+class SearchDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated]  # or allow all if appropriate
+
+    def get(self, request, username, *args, **kwargs):
+        meta = get_object_or_404(UserMeta, user__username=username)
+        serializer = UserMetaSerializer(meta)
+        return Response(serializer.data)

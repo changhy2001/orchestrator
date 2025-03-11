@@ -20,7 +20,7 @@ export default createStore({
     async checkAuthStatus({ commit }) {
       commit('SET_LOADING', true);
       try {
-        const response = await axios.get('/users/api/auth-status/');
+        const response = await axios.get('/users/auth-status/');
         console.log("Auth status response:", response.data);
         if (response.data.authenticated) {
           commit('SET_AUTH', { isAuthenticated: true, user: response.data.username });
@@ -43,7 +43,7 @@ export default createStore({
     },
     async login({ dispatch }, credentials) {
       try {
-        const response = await axios.post('/users/api/login/', credentials);
+        const response = await axios.post('/users/login/', credentials);
         if (response.data.success) {
           // After successful login, update auth state (by calling checkAuthStatus, for example)
           await dispatch('checkAuthStatus');
@@ -59,7 +59,7 @@ export default createStore({
     },
     async logout({ commit }) {
       try {
-        const response = await axios.post('/users/api/logout/');
+        const response = await axios.post('/users/logout/');
         if (response.data.success) {
           commit('SET_AUTH', { isAuthenticated: false, user: null });
           localStorage.removeItem('auth');

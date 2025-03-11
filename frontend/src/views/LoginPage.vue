@@ -50,7 +50,7 @@ export default {
       // Clear any previous error messages
       this.errorMessage = '';
       try {
-        const response = await axios.post('/users/api/login/', this.form);
+        const response = await axios.post('/users/login/', this.form);
         if (response.data.success) {
           await this.$store.dispatch('checkAuthStatus');
           this.$router.push({ name: 'Search' });

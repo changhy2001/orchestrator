@@ -39,7 +39,7 @@ export default {
   mounted() {
     // Retrieve the username from route params
     const username = this.$route.params.username;
-    axios.get(`/search/api/${username}/`)
+    axios.get(`/search/${username}/`)
       .then(response => {
         this.meta = response.data;
       })

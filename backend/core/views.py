@@ -1,12 +1,15 @@
-"""
-# from django.http import HttpResponse
-from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
-def homepage(request):
-    # return HttpResponse('Hello World!')
-    return render(request, 'home.html')
+class AuthStatusAPIView(APIView):
+    permission_classes = [AllowAny]
 
-def about(request):
-    # return HttpResponse('My About Page')
-    return render(request, 'about.html')
-"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return Response({
+                "authenticated": True,
+                "username": request.user.username
+            })
+        else:
+            return Response({"authenticated": False})
