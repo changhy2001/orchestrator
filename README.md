@@ -137,10 +137,14 @@
 
 
 5. 검색 화면 (정삭적으로 로그인되었을 경우) - username, credential, qustion, date 별 필터링 기능을 통한 검색
-   <img width="1440" alt="Screenshot 2025-03-09 at 8 52 01 PM" src="https://github.com/user-attachments/assets/c2ebdd63-6aa3-4834-a4f9-7e5cf3062fd0" />
+   <img width="1440" alt="Screenshot 2025-03-12 at 8 06 29 PM" src="https://github.com/user-attachments/assets/3449edbd-1d37-405b-b80c-a27be2eb998d" />
 
 
-6. 로그아웃 - 로그아웃 텍스트 클릭 시 정상적으로 로그아웃되며 Home 화면으로 돌아감
+6. 유저 클릭 시 테이블 상세 data 확인
+   <img width="1440" alt="Screenshot 2025-03-12 at 8 06 39 PM" src="https://github.com/user-attachments/assets/f532d1c5-3b15-4854-8474-6faf04c80710" />
+
+
+8. 로그아웃 - 로그아웃 텍스트 클릭 시 정상적으로 로그아웃되며 Home 화면으로 돌아감
    
    
 ---
