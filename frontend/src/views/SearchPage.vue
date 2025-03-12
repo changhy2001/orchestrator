@@ -69,6 +69,7 @@
             <th>Credentials</th>
             <th>Questions</th>
             <th>Session Info</th>
+            <th>Created At</th>
             <th>Last Updated</th>
           </tr>
         </thead>
@@ -82,6 +83,7 @@
             <td>{{ formatCredentials(meta.credentials) }}</td>
             <td>{{ meta.questions.join(', ') }}</td>
             <td>{{ meta.session_info }}</td>
+            <td>{{ meta.created_at }}</td>
             <td>{{ meta.updated_at }}</td>
           </tr>
         </tbody>
@@ -142,23 +144,8 @@ export default {
 </script>
 
 <style scoped>
-/* Add component-specific styles if needed */
-
-/* Reduce text size for the table */
-.custom-table {
-  font-size: 1rem;
-  border-spacing: 10px;
-}
-
-/* Override table borders to be white */
-.custom-table th,
-.custom-table td {
-  border: 1px solid #fff !important;
-  padding: 8px;
-}
-
 /* Optional spacing adjustments */
 .small-break {
-  margin: 10px 10px;
+  margin: 10px;
 }
-</style>
+</style> 

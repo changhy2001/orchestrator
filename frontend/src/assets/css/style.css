@@ -378,3 +378,28 @@
     line-height: 10px;
   }
   
+
+  /* Reduce text size for the table */
+.custom-table {
+  width: 100%;
+  font-size: 1rem;
+  border-spacing: 3px; /* Adds space between cell borders */
+}
+
+/* Override table borders to be white */
+.custom-table,
+.custom-table th,
+.custom-table td {
+  border: 1px solid var(--white) !important;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 8px;
+}
+
+.custom-table thead {
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-weight: bold;
+}
