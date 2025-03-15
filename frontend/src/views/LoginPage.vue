@@ -53,7 +53,8 @@ export default {
         const response = await axios.post('/users/login/', this.form);
         if (response.data.success) {
           await this.$store.dispatch('checkAuthStatus');
-          this.$router.push({ name: 'Search' });
+          this.$router.push({ name: 'SearchApp' });
+          this.errorMessage = 'Login Successful';
         } else {
           // Set a fixed error message
           this.errorMessage = 'Invalid username or password.';

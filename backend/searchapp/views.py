@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated  # or allow any
 from .models import UserMeta
 from .serializers import UserMetaSerializer
 
-class SearchAPIView(APIView):
+class SearchUserMetaAPIView(APIView):
     permission_classes = [IsAuthenticated]  # or use an alternative
 
     def get(self, request, *args, **kwargs):
@@ -72,10 +72,15 @@ class SearchAPIView(APIView):
         return Response(results)
     
 
-class SearchDetailAPIView(APIView):
+class SearchUserMetaDetailAPIView(APIView):
     permission_classes = [IsAuthenticated]  # or allow all if appropriate
 
     def get(self, request, username, *args, **kwargs):
         meta = get_object_or_404(UserMeta, user__username=username)
         serializer = UserMetaSerializer(meta)
         return Response(serializer.data)
+    
+"""
+add more views here
+class SearchUserMetaAPIView(APIView):"
+"""

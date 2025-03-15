@@ -96,7 +96,7 @@ export default {
         const response = await axios.post('/users/register/', requestData);
         if (response.data.success) {
           await this.$store.dispatch('checkAuthStatus');
-          this.$router.push({ name: 'Search' });
+          this.$router.push({ name: 'SearchApp' });
         } else {
           // Set a fixed error message if registration fails
           this.errorMessage = 'Registration unsuccessful. Please check your input.';

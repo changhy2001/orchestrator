@@ -9,10 +9,6 @@ module.exports = defineConfig({
         target: 'http://localhost:8000', // Django server URL for user endpoints
         changeOrigin: true,
       },
-      '/search': {
-        target: 'http://localhost:8000', // Django server URL for search endpoints
-        changeOrigin: true,
-      },
     }
   },
 });

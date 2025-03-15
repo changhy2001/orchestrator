@@ -6,7 +6,7 @@
       <router-link to="/about" class="nav-button" aria-label="About" title="About">About</router-link>
       <!-- Render based on authentication state -->
       <template v-if="isAuthenticated">
-        <router-link to="/search" class="nav-button" aria-label="Search" title="Search">Search</router-link>
+        <router-link to="/searchapp" class="nav-button" aria-label="AppHome" title="AppHome">Search App</router-link>
         <button @click="handleLogout" class="nav-button" aria-label="Logout" title="Logout">Logout</button>
       </template>
       <template v-else>
