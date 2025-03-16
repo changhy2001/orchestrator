@@ -1,10 +1,10 @@
 <!-- UserMetaDetail.vue -->
 <template>
-  <BaseDetailTemplate apiEndpoint="/searchapp/usermeta" paramName="username">
+  <BaseDetailTemplate apiEndpoint="/searchapp/usermeta" paramName="pk">
     <!-- The default slot receives the fetched data as 'meta' -->
     <template #default="{ meta }">
       <section>
-        <h1>{{ meta.user_username }}</h1>
+        <h1>{{ meta.username }}</h1>
         <p>
           <strong>Credentials:</strong>
           <!-- Display credentials (adjust formatting as needed) -->

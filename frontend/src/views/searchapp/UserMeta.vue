@@ -1,12 +1,19 @@
 <!-- UserMeta.vue -->
 <template>
-  <BaseSearchTemplate apiEndpoint="/searchapp/usermeta">
-    <!-- Customize the title -->
+  <BaseSearchTemplate
+    ref="baseSearch"
+    apiEndpoint="/searchapp/usermeta"
+    editRouteName="UserMetaEdit"
+    @add-row="handleAdd"
+    @formSubmitted="handleFormSubmitted"
+    @formError="handleFormError"
+  >
+    <!-- Title -->
     <template #title>
       Search Users
     </template>
 
-    <!-- Customize the search form -->
+    <!-- Search Form -->
     <template #search-form="{ query }">
       <div class="form-row">
         <div class="form-group col-12">
@@ -35,6 +42,7 @@
           <input type="text" class="form-control" v-model="query.session_info_contains" placeholder="Session info contains...">
         </div>
       </div>
+      <!-- Date filters -->
       <div class="form-row">
         <div class="form-group col-md-3">
           <label class="small-label">Created At (Min)</label>
@@ -55,8 +63,66 @@
       </div>
     </template>
 
-    <!-- Customize the table header -->
+    <!-- Add Form Slot -->
+    <template #add-form="{ form }">
+      <div class="form-group">
+        <label class="small-label" for="user">User</label>
+        <select id="user" name="user" v-model="form.user" class="form-control">
+          <option disabled value="">Select a user</option>
+          <option v-for="u in users" :key="u.id" :value="u.id">
+            {{ u.username }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="small-label" for="questions">Questions (comma-separated)</label>
+        <textarea
+          id="questions"
+          name="questions"
+          v-model="form.questions"
+          class="form-control"
+          placeholder="Enter questions, separated by commas"
+          autocomplete="off"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label class="small-label" for="credentials">Credentials (JSON format)</label>
+        <textarea
+          id="credentials"
+          name="credentials"
+          v-model="form.credentials"
+          class="form-control"
+          placeholder='Enter credentials in JSON format'
+          autocomplete="off"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label class="small-label" for="session_info">Session Info</label>
+        <textarea
+          id="session_info"
+          name="session_info"
+          v-model="form.session_info"
+          class="form-control"
+          placeholder="Enter session info"
+          autocomplete="off"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label class="small-label" for="user_logs">User Logs (JSON format)</label>
+        <textarea
+          id="user_logs"
+          name="user_logs"
+          v-model="form.user_logs"
+          class="form-control"
+          placeholder='Enter user logs in JSON format'
+          autocomplete="off"
+        ></textarea>
+      </div>
+    </template>
+
+    <!-- Table Header -->
     <template #table-header>
+      <th>ID</th>
       <th>User</th>
       <th>Credentials</th>
       <th>Questions</th>
@@ -65,20 +131,19 @@
       <th>Last Updated</th>
     </template>
 
-    <!-- Customize the table body -->
-    <template #table-body="{ results }">
-      <tr v-for="(meta, index) in results" :key="index">
-        <td>
-          <router-link :to="{ name: 'UserMetaDetail', params: { username: meta.user_username } }">
-            {{ meta.user_username }}
-          </router-link>
-        </td>
-        <td>{{ meta.credentials }}</td>
-        <td>{{ meta.questions }}</td>
-        <td>{{ meta.session_info }}</td>
-        <td>{{ meta.created_at }}</td>
-        <td>{{ meta.updated_at }}</td>
-      </tr>
+    <!-- Table Body -->
+    <template #table-body="{ row }">
+      <td>
+        <router-link :to="{ name: 'UserMetaDetail', params: { pk: row.id } }">
+          {{ row.id }}
+        </router-link>
+      </td>
+      <td>{{ row.username }}</td>
+      <td>{{ row.credentials }}</td>
+      <td>{{ row.questions }}</td>
+      <td>{{ row.session_info }}</td>
+      <td>{{ row.created_at }}</td>
+      <td>{{ row.updated_at }}</td>
     </template>
   </BaseSearchTemplate>
 </template>
@@ -90,6 +155,20 @@ export default {
   name: "UserMeta",
   components: {
     BaseSearchTemplate,
+  },
+  methods: {
+    handleFormSubmitted(formData) {
+      // Handle successful submission (e.g., refresh list, show message)
+      console.log("Form submitted successfully:", formData);
+    },
+    handleFormError(error) {
+      // Handle errors (e.g., display error message)
+      console.error("Form submission error:", error);
+    },
+    handleAdd() {
+      // Additional handling when the Add button is clicked if needed.
+      console.log("Add button clicked");
+    },
   },
 };
 </script>

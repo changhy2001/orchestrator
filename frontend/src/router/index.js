@@ -15,7 +15,7 @@ const routes = [
   { path: '/register', name: 'Register', component: RegisterPage },
   { path: '/searchapp', name: 'SearchApp', component: AppHomePage },
   { path: '/searchapp/usermeta', name: 'UserMeta', component: UserMeta},
-  { path: '/searchapp/usermeta/:username', name: 'UserMetaDetail', component: UserMetaDetail},
+  { path: '/searchapp/usermeta/:pk', name: 'UserMetaDetail', component: UserMetaDetail},
 ];
 
 const router = createRouter({

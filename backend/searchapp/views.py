@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated  # or allow any
+from rest_framework import status
 from .models import UserMeta
 from .serializers import UserMetaSerializer
 
@@ -55,30 +56,31 @@ class SearchUserMetaAPIView(APIView):
             metadatas = metadatas.filter(updated_at__gte=parse_date(updated_at_min))
         if updated_at_max:
             metadatas = metadatas.filter(updated_at__lte=parse_date(updated_at_max))
-
-        # Convert to a list of dictionaries (basic approach)
-        # or you can use a Serializer if you prefer
-        results = []
-        for meta in metadatas:
-            results.append({
-                "user_username": meta.user.username,
-                "credentials": meta.credentials,
-                "questions": meta.questions,
-                "session_info": meta.session_info,
-                "created_at": meta.created_at,
-                "updated_at": meta.updated_at,
-            })
-
-        return Response(results)
+        
+        serializer = UserMetaSerializer(metadatas, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request, *args, **kwargs):
+        # Option A: Let the client supply all fields.
+        serializer = UserMetaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class SearchUserMetaDetailAPIView(APIView):
-    permission_classes = [IsAuthenticated]  # or allow all if appropriate
+    permission_classes = [IsAuthenticated]  # or adjust as needed
 
-    def get(self, request, username, *args, **kwargs):
-        meta = get_object_or_404(UserMeta, user__username=username)
+    def get(self, request, pk, *args, **kwargs):
+        meta = get_object_or_404(UserMeta, pk=pk)
         serializer = UserMetaSerializer(meta)
         return Response(serializer.data)
+
+    def delete(self, request, pk, *args, **kwargs):
+        meta = get_object_or_404(UserMeta, pk=pk)
+        meta.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 """
 add more views here
