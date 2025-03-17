@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserMeta(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="searchapp_user")
+    username = models.CharField(max_length=150, unique=True, null=True, blank=True)
     questions = models.JSONField(default=list, blank=True)  # Store a list of text questions
     credentials = models.JSONField(default=dict, blank=True)  # Store credentials in JSON format
     session_info = models.TextField(blank=True, null=True)  # Store session metadata
@@ -11,7 +11,7 @@ class UserMeta(models.Model):
     updated_at = models.DateTimeField(auto_now=True)  # Timestamp when updated
 
     def __str__(self):
-        return f"Meta Info for {self.user.username}"
+        return f"Meta Info for {self.username}"
 
 """
 add more models

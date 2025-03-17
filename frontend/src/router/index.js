@@ -6,6 +6,7 @@ import RegisterPage from '@/views/RegisterPage.vue';
 import AppHomePage from '@/views/AppHomePage.vue';
 import UserMeta from '@/views/searchapp/UserMeta.vue';
 import UserMetaDetail from '@/views/searchapp/UserMetaDetail.vue';
+import UserMetaEdit from '@/views/searchapp/UserMetaEdit.vue';
 
 
 const routes = [
@@ -15,7 +16,8 @@ const routes = [
   { path: '/register', name: 'Register', component: RegisterPage },
   { path: '/searchapp', name: 'SearchApp', component: AppHomePage },
   { path: '/searchapp/usermeta', name: 'UserMeta', component: UserMeta},
-  { path: '/searchapp/usermeta/:pk', name: 'UserMetaDetail', component: UserMetaDetail},
+  { path: '/searchapp/usermeta/:id', name: 'UserMetaDetail', component: UserMetaDetail },
+  { path: '/searchapp/usermeta/edit/:id', name: 'UserMetaEdit', component: UserMetaEdit },
 ];
 
 const router = createRouter({

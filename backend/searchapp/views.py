@@ -28,7 +28,7 @@ class SearchUserMetaAPIView(APIView):
 
         # Apply full-text search if query is provided
         if q:
-            vector = SearchVector("user__username", "credentials", "questions", "session_info")
+            vector = SearchVector("username", "credentials", "questions", "session_info")
             query = SearchQuery(q)
 
             metadatas = (
@@ -39,7 +39,7 @@ class SearchUserMetaAPIView(APIView):
 
         # Additional filters
         if username_contains:
-            metadatas = metadatas.filter(user__username__icontains=username_contains)
+            metadatas = metadatas.filter(username__icontains=username_contains)
         if credentials_contains:
             metadatas = metadatas.filter(credentials__icontains=credentials_contains)
         if questions_contains:
@@ -61,7 +61,6 @@ class SearchUserMetaAPIView(APIView):
         return Response(serializer.data)
     
     def post(self, request, *args, **kwargs):
-        # Option A: Let the client supply all fields.
         serializer = UserMetaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

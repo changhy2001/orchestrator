@@ -66,13 +66,15 @@
     <!-- Add Form Slot -->
     <template #add-form="{ form }">
       <div class="form-group">
-        <label class="small-label" for="user">User</label>
-        <select id="user" name="user" v-model="form.user" class="form-control">
-          <option disabled value="">Select a user</option>
-          <option v-for="u in users" :key="u.id" :value="u.id">
-            {{ u.username }}
-          </option>
-        </select>
+        <label class="small-label" for="username">Username</label>
+        <textarea
+          id="username"
+          name="questions"
+          v-model="form.username"
+          class="form-control"
+          placeholder="Enter username"
+          autocomplete="off"
+        ></textarea>
       </div>
       <div class="form-group">
         <label class="small-label" for="questions">Questions (comma-separated)</label>
@@ -155,6 +157,12 @@ export default {
   name: "UserMeta",
   components: {
     BaseSearchTemplate,
+  },
+  data() {
+    return {
+      // This will hold the list of users fetched from the API.
+      users: [],
+    };
   },
   methods: {
     handleFormSubmitted(formData) {

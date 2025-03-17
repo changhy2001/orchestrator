@@ -98,7 +98,8 @@ export default {
       results: [],
       showAddForm: false, // Controls visibility of the add form
       form: {
-        user: "",
+        // Changed from 'user' to 'username'
+        username: "",
         questions: "",
         credentials: "",
         session_info: "",
@@ -124,7 +125,7 @@ export default {
     },
     handleEdit(row) {
       if (this.editRouteName) {
-        this.$router.push({ name: this.editRouteName, params: { pk: row.id } });
+        this.$router.push({ name: this.editRouteName, params: { id: row.id } });
       } else {
         console.log("Edit action for row:", row);
       }
@@ -132,19 +133,20 @@ export default {
     handleDelete(row) {
       if (confirm(`Are you sure you want to delete this record?`)) {
         const csrfToken = getCookie("csrftoken");
-        axios.delete(`${this.apiEndpoint}/${row.id}/`, {
-          headers: {
-            "X-CSRFToken": csrfToken
-          }
-        })
-        .then(() => {
-          alert("Record deleted successfully");
-          this.performSearch();
-        })
-        .catch((error) => {
-          console.error("Error deleting record:", error);
-          alert("Error deleting record.");
-        });
+        axios
+          .delete(`${this.apiEndpoint}/${row.id}/`, {
+            headers: {
+              "X-CSRFToken": csrfToken,
+            },
+          })
+          .then(() => {
+            alert("Record deleted successfully");
+            this.performSearch();
+          })
+          .catch((error) => {
+            console.error("Error deleting record:", error);
+            alert("Error deleting record.");
+          });
       }
     },
     handleAdd() {
@@ -153,28 +155,52 @@ export default {
       this.$emit("add-row");
     },
     handleSubmitAdd() {
-      // Retrieve CSRF token if needed (for session authentication)
-      const csrfToken = getCookie("csrftoken");
+    // Retrieve CSRF token if needed (for session authentication)
+    const csrfToken = getCookie("csrftoken");
 
-      axios
-        .post(this.apiEndpoint + "/", this.form, {
+    // Convert comma-separated string inputs to arrays.
+    // Adjust the splitting logic if needed.
+    const payload = {
+      ...this.form,
+      questions: this.form.questions
+        ? this.form.questions.split(",").map(q => q.trim()).filter(q => q !== "")
+        : [],
+      credentials: this.form.credentials
+        ? this.form.credentials.split(",").map(c => c.trim()).filter(c => c !== "")
+        : [],
+      user_logs: this.form.user_logs
+        ? this.form.user_logs.split(",").map(l => l.trim()).filter(l => l !== "")
+        : [],
+    };
+
+    axios
+      .post(this.apiEndpoint + "/", payload, {
         headers: {
-            "X-CSRFToken": csrfToken,
-          },
-        })
-        .then(response => {
+          "X-CSRFToken": csrfToken,
+        },
+      })
+      .then(response => {
         // Emit a success event with the response data.
         this.$emit("formSubmitted", response.data);
-        })
-        .catch(error => {
+        this.form = {
+          username: "",
+          questions: "",
+          credentials: "",
+          session_info: "",
+          user_logs: "",
+        };
+        this.showAddForm = false;
+        this.performSearch();
+      })
+      .catch(error => {
         console.error("Error submitting form:", error);
-        this.error =
-            error.response && error.response.data
+        const errorMsg =
+          error.response && error.response.data
             ? error.response.data
             : error.message;
-        this.$emit("formError", this.error);
+        this.$emit("formError", errorMsg);
         this.showAddForm = false;
-        });
+      });
     },
   },
 };
